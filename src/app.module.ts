@@ -12,15 +12,19 @@ import { OrdersRetrieverServiceModule } from './orders-retriever-service/orders-
 import { OrdersUpdaterServiceModule } from './orders-updater-service/orders-updater-service.module';
 import { DevConfigService } from './common/providers/DevConfigService';
 import { RedisService } from './common/services/redis.service'; 
+import { ConfigModule } from '@nestjs/config';
 
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // Para que esté disponible en todo el proyecto
+    }),
     OrdersServiceModule,
-     OrdersRetrieverServiceModule,
-      OrdersUpdaterServiceModule],
+    OrdersRetrieverServiceModule,
+    OrdersUpdaterServiceModule],
   controllers: [AppController],
   providers: [AppService, RedisService, {
     provide: DevConfigService,

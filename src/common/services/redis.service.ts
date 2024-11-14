@@ -1,16 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
+import { ConfigService } from '@nestjs/config'; 
+
+
 
 @Injectable()
 export class RedisService {
   private redisClient: Redis;
 
-  constructor() {
+  constructor(private configService: ConfigService) {
+    //const hostredis = this.configService.get<string>('URL_API');
+   // const portredis = this.configService.get<number>('PUERTO_API');
+   const renderedis = this.configService.get<string>('REDIS_URL');
+   /*
     this.redisClient = new Redis({
-      host: 'localhost',
-      port: 6379,
+      host: hostredis,
+      port: portredis,
     });
+    */
+    if (renderedis) {
+      this.redisClient = new Redis(renderedis);
+    } else {
+      throw new Error('La URL de Redis no está configurada correctamente');
+    }
+  
   }
+
+
 
   // Método para guardar un objeto en Redis
   async set(key: string, value: any): Promise<void> {

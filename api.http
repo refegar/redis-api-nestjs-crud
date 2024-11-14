@@ -8,10 +8,10 @@ POST http://localhost:3000/orders-service
 Content-Type: application/json
 
 {
-"nombre": "Jabon olor",
-"categoria": "aseo",
-"precio" : 4000,
-"cantidad" :2
+"nombre": "Leche Entera",
+"categoria": "Alimentos",
+"precio" : 5000,
+"cantidad" :3
 }
 
 
